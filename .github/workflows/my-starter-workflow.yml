@@ -15,7 +15,15 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy to your project.
 
-  call-reusable-workflow:  # This job needs to be defined under `jobs`
+  call-reusable-workflow:  # This job was correctly placed initially, but it should be unique or restructured.
     uses: ./.github/workflows/reusable-workflow.yml
     with:
       node: 14
+
+  call-reusable-workflow-matrix:  # Renamed job to avoid duplication and conflict
+    strategy:
+      matrix:
+        nodeversion: [14, 16, 18, 20]
+    uses: ./.github/workflows/reusable-workflow.yml
+    with:
+      node: ${{ matrix.nodeversion }}
